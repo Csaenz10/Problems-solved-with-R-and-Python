@@ -1,4 +1,4 @@
-# Problems solved with R and Python
+# Assignments
 ### A collection of problems I used R and Python to solve from my computational biology class.
 <details><summary>R PROBLEMS</summary>
 <p>
