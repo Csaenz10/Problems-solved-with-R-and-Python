@@ -1,0 +1,80 @@
+# Assignment 12 (4.10.1)
+
+# 1.) Write a function that takes as input the desired `Taxon`, 
+# and returns the mean value of `r
+
+cd ~/CSB/good_code/sandbox/
+python3
+import csv
+taxa = []
+r_values = []
+
+# Read in all the `r` values for each 'Taxon` 
+
+with open("../data/Jiang2013_data.csv") as f:
+	reader = csv.DictReader(f, delimiter = '\t')
+	for row in reader:
+		taxa.append(row['Taxon'])
+		r_values.append(float(row['r']))
+
+# check
+
+taxa[:5]
+r_values[:5]
+
+# write a function that takes as input the two lists,
+# as well as a target taxon and computes the average `r`
+
+def compute_avg_r(taxa, r_values, target_taxon = "Fish"):
+	n = len(taxa)
+	avg_taxon = 0.0
+	num_occurrences = 0
+	for i in range(n):
+		if taxa[i] == target_taxon:
+			avg_taxon = avg_taxon + r_values[i]
+			num_occurrences = num_occurrences + 1
+	return avg_taxon / num_occurrences
+				
+# check		
+		
+compute_avg_r(taxa, r_values, target_taxon = "Fish")
+
+# 2.) You should see that fish have a positive value of r, 
+# but that this is also true for other taxa.
+# Is the mean value of r especially high for fish? 
+# To test this, compute a p-value by repeatedly sampling 37 values
+# of r at random (37 experiments on fish are reported in the database),
+# and calculating the probability of observing a higher mean value of r.
+# To get an accurate estimate of the p-value, use 50,000 randomizations.
+
+# to get random shuffle
+
+import scipy 
+
+def compute_pvalue(taxa, r_values, target_taxon = "Fish", num_rep = 1000):
+	observed_r = compute_avg_r(taxa, r_values, target_taxon)
+	rnd_taxa = taxa[:]
+	count_mean_r = 0.0
+	for i in range(num_rep):
+		scipy.random.shuffle(rnd_taxa)
+		random_r = compute_avg_r(rnd_taxa, r_values, target_taxon)
+		if random_r >= observed_r:
+			count_mean_r = count_mean_r + 1
+	pvalue = count_mean_r / num_rep
+	return [target_taxon, round(observed_r, 3), round(pvalue, 5)]
+
+# check 
+
+compute_pvalue(taxa, r_values, 'Fish', 50000)
+
+# 3.)  Repeat the procedure for all taxa
+
+
+def get_taxa_list(taxa):
+	return(set(taxa))
+
+get_taxa_list(taxa)
+
+for t in get_taxa_list(taxa):
+	print(compute_pvalue(taxa, r_values, t, 50000))
+

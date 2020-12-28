@@ -1,0 +1,193 @@
+# open python and set working directory
+
+python3
+import os                      
+os.getcwd()                     
+'/home/csaenz10/CSB/python/sandbox'
+
+#### 3.8.1 Measlies Time Series ####
+
+# 1. Write a program that extracts the names of all the cities
+# in the database (one city per entry)
+
+# create empty set
+
+cities = set([])
+
+# read in file and check the first line
+
+import csv
+
+with open('../data/Dalziel2016_data.csv', 'r') as f: 
+	reader = csv.DictReader(f) 
+	for line in reader: 
+		print(line)
+		break 
+		
+# output {'biweek': '1', 'year': '1906', 'loc': 'BALTIMORE', 'cases': 'NA', 'pop': '526822.1365'}
+
+# Isolate the city names in the file and add them to cities,
+# no duplicates
+
+with open('../data/Dalziel2016_data.csv', 'r') as f:
+	reader = csv.DictReader(f)
+	for line in reader:
+		cities.add(line['loc'])
+
+cities  #check file			
+
+# 2. Write a program that creates a dictionary 
+# where the keys are the cities, and the
+# values are the number of records (rows) for that city in the data.
+  
+# import csv library, create empty dictionary,citycount
+# read in file, set up dictionary reader
+# for each line, my_city = extract the city
+# citycount[my_city] = use get to update value
+
+
+
+citycount = {} 
+import csv 
+
+with open('../data/Dalziel2016_data.csv', 'r') as f: 
+	reader = csv.DictReader(f)
+	for line in reader:
+		mycity = line['loc']
+		citycount[mycity] = citycount.get(mycity, 0)
+		citycount[mycity] = citycount [mycity] + 1
+		
+# To test a few cities
+for city in ['CHICAGO', 'LOS ANGELES', 'NEW YORK']:
+	print(city, citycount[city])
+
+# 3. Write a program that calculates the mean population for each city, obtained by
+averaging the value of pop.
+# create empty dictionary,citypop, read in file, set up dictionary reader
+# for each line in data, my_city = extract the city, my_pop = extract population
+# if first time city is seen, initialize:
+# citypop[my_city] = [0.0, 0]
+# citypop[my_city][0] = what it was before + my_pop
+# citypop[my_city][1] = what it was before + 1
+
+citypop = {}
+
+import csv 
+
+with open('../data/Dalziel2016_data.csv', 'r') as f: 
+	reader = csv.DictReader(f)
+	for line in reader:
+		mycity = line['loc']
+		pop = float(line['pop']) 
+		citypop[mycity] = citypop.get(mycity, [0,0])
+		citypop[mycity][0] = citypop[mycity][0] + pop
+		citypop[mycity][1] = citypop[mycity][1] + 1
+
+citypop #check
+
+# To get average, divide first value by the second
+
+for city in citypop.keys():
+	citypop[city][0] = citypop[city][0] / citypop[city][1]
+
+#check
+
+for city in ['CHICAGO', 'LOS ANGELES', 'NEW YORK']:
+	print(city, citypop[city][0])
+
+
+# 4. Write a program that calculates 
+# the mean population for each city and year.
+
+cityyear = {}
+
+import csv
+
+with open('../data/Dalziel2016_data.csv', 'r') as f:
+	reader = csv.DictReader(f)
+	for line in reader:
+		mycity = line['loc']
+		year = line['year']
+		pop = float(line['pop']) 
+		cityyear[mycity] = cityyear.get(mycity, {})
+		cityyear[mycity][year] = cityyear[mycity].get(year, [0,0])
+		cityyear[mycity][year][0] = cityyear[mycity][year][0] + pop
+		cityyear[mycity][year][1] = cityyear[mycity][year][1] + 1
+		
+# to get averages
+
+for city in cityyear.keys():
+	for year in cityyear[city].keys():
+		cityyear[city][year][0] = cityyear[city][year][0] / cityyear[city][year][1]
+
+# store the years in a list
+
+years = list(cityyear['CHICAGO'].keys())
+
+# sort the years
+
+years.sort() 
+
+# print population for each year
+
+for year in years:
+	print(year, round(cityyear['CHICAGO'][year][0]))
+
+#### 3.8.2 Red Queen in Fruit Flies ####
+
+# 1. Computate the mean Recombinant Fraction for each Drosophilia line and Infection Status
+# W for wounded and I for infected) Print the results.
+
+# import csv, create empty directory, my_data, open the file for reading, set up dictionary reader
+# for each row: 
+# my_line = extract line
+# my_status = extract status
+# my_recombination = extract recombination
+# if my_line is not in my_data:
+# initialize the key in the outer dictionary (e.g., to {'W' = [], 'I' = []})
+# append my_recombination to the list in my_data[my_line][my_status]
+# cycle through the lines
+# for line in my_data:
+# for 'W' and 'I':
+# average = sum all elements and divide by number of elements
+
+import csv
+my_data = ([])	
+
+with open('../data/Singh2015_data.csv') as csvfile:
+	reader = csv.DictReader(csvfile)
+	for row in reader:
+		my_line = row['Line']
+		my_status = row['InfectionStatus']
+		my_recomb = float(row['RecombinantFraction'])
+		print(my_line, my_status, my_recomb)
+		break
+
+# output 21 I 0.1826923077 
+
+with open('../data/Singh2015_data.csv') as csvfile:
+	reader = csv.DictReader(csvfile)
+	for row in reader:
+		my_line = row['Line']
+		my_status = row['InfectionStatus']
+		my_recomb = float(row['RecombinantFraction'])
+		if my_line not in my_data:
+			my_data[my_line] = {'W': ([]), 'I': ([])}
+		my_data[my_line][my_status].append(my_recomb)
+
+my_data #check
+
+# calculate mean
+
+for line in my_data:
+	print('Line', line, 'Average Recombination Rate:')
+	my_subset = my_data[line]
+	for status in ['W', 'I']:
+		print(status, ':', end = '') 
+		my_mean = sum(my_subset[status])
+		my_num_elements = len(my_subset[status])
+		my_mean = my_mean / my_num_elements
+		print(' ', round(my_mean, 3))
+	print('') 
+
+		
