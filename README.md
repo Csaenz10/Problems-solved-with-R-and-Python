@@ -3,11 +3,9 @@
 <details><summary>R PROBLEMS</summary>
 <p>
 
-* Problem 1
+* [Problem 1](Assignments/assignment-06-Csaenz10-answers.R)
 
-* Problem 2
-  
-* Problem 3
+* [Problem 2](Assignments/ageCovidSummary.R)
 
 
 </p>
@@ -17,13 +15,9 @@
 <details><summary>PYTHON PROBLEMS</summary>
 <p>
 
-* Problem 1
+* [Problem 1](Assignments/assignment-11-Csaenz10.txt)
 
-* Problem 2
-
-* Problem 3
-
-* Problem 4
+* [Problem 2](Assignments/assignment12.txt)
 
 
 </p>
