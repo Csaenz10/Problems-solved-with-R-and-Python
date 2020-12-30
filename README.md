@@ -11,11 +11,11 @@
   * [My Solution/Code](Assignments/assignment-06-Csaenz10-answers.R)
 
 * **Problem 2** 
-We will be analyzing the `age_count_2020-07-13_2020-10-11.xlsx` data set from lecture 8. This data consists of the date that a COVID-19 test from somebody residing in Nueces County comes back positive (LABDATE) the age of the person (AGE_YEARS). Each row is a person.  There are 4 worksheets in the excel workbook, one per month from July to October.
+We will be analyzing the `age_count_2020-07-13_2020-10-11.xlsx` data se. This data consists of the date that a COVID-19 test from somebody residing in Nueces County comes back positive (LABDATE) the age of the person (AGE_YEARS). Each row is a person.  There are 4 worksheets in the excel workbook, one per month from July to October.
 
 Your goal is to complete the tasks and create an R script that will work when this repo is cloned to any computer. I encourage you to make tidyverse pipelines, where the responses from several questions are assembled in one or a few pipelines. 
 
-When you are complete, submit the exam by pushing the changes to github (you may do this several times).
+When you are complete, submit by pushing the changes to github.
 
 0. Create an R script named `ageCovidSummary.R` in your exam repo and set the working directory with the following command:
 
@@ -24,17 +24,9 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 ```
 
 
-#### 1. Load the following libraries (and install if necessary):
+#### 1. Load the following libraries (and install if necessary): tidyverse, readxl, janitor,lubridate
 
-  * tidyverse
-  
-  * readxl
-  
-  * janitor
-  
-  * lubridate
-
-#### 2. Referring to lecture 8 (some code will need to be altered), read the data from `age_count_2020-07-13_2020-10-11.xlsx` into a tibble named `covid_cases_age` and then do the following in a single pipeline:
+#### 2. Referring to lecture 8, read the data from `age_count_2020-07-13_2020-10-11.xlsx` into a tibble named `covid_cases_age` and then do the following in a single pipeline:
 
   * format the column names
   
