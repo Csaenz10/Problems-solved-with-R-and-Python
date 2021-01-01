@@ -10,8 +10,14 @@
  [My Solution/Code](Assignments/assignment-06-Csaenz10-answers.R)
 
 **Problem 2** We will be analyzing the `age_count_2020-07-13_2020-10-11.xlsx` data set; This data consists of the date that a COVID-19 test from somebody residing in Nueces County comes back positive (LABDATE) the age of the person (AGE_YEARS). Each row is a person. There are 4 worksheets in the excel workbook, one per month from July to October. Your goal is to complete the tasks and create an R script that will work when this repo is cloned to any computer. I encourage you to make tidyverse pipelines, where the responses from several questions are assembled in one or a few pipelines. When you are complete, submit by pushing the changes to github.
-  * Create an R script named `ageCovidSummary.R` in your exam repo and set the working directory with the following command: setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
-  * Load the following libraries (install if necessary):
+  * Create an R script named `ageCovidSummary.R` in your exam repo and set the working directory with the following command: 
+
+```r
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+```
+
+
+* Load the following libraries (install if necessary):
     * tidyverse
     * readxl
     * janitor
@@ -24,6 +30,30 @@
     * group the tibble by date and age_class
     * use summarise() to transform the tibble so that each row is a unique combination of date and age_class, and the number of positive cases in each age class on each date is stored in a column called new_cases
     * If done properly, this is how covid_cases_age will look:
+    
+    ```r
+     > covid_cases_age
+    # A tibble: 433 x 3
+    # Groups:   date [91]
+       date       age_class new_cases
+       <date>     <chr>         <int>
+     1 2020-07-13 0-19             44
+     2 2020-07-13 20-39            73
+     3 2020-07-13 40-59            84
+     4 2020-07-13 60-79            49
+     5 2020-07-13 80+               3
+     6 2020-07-14 0-19             61
+     7 2020-07-14 20-39           213
+     8 2020-07-14 40-59           219
+     9 2020-07-14 60-79           102
+    10 2020-07-14 80+              10
+    # ... with 423 more rows
+    ```
+    
+  
+  * Create the following plot from `covid_cases_age`
+  
+  ![](nueces_new-cases_age-class.png)
 [My Solution/Code](Assignments/ageCovidSummary.R)
 
 
