@@ -34,20 +34,20 @@
 <details><summary>PYTHON PROBLEMS</summary>
 <p>
 
-* **Problem 1** 3.8.1 Measles Time Series from *Computing Skills for Biologists: A Toolbox*
+* **Problem 1a** 3.8.1 Measles Time Series from *Computing Skills for Biologists: A Toolbox*
 In their article, Dalziel et al. (2016) provide a long time series reporting the number of cases of measles before mass vacination, for many US cities. The data consist of cases in a given US city for a given year, and a given biweek of the year (i.e., first two weeks, second two weeks, etc.). The time series is contained in the file Dalziel2016_data.csv.
   * a.) Write a program that extracts the names of all the cities in the database (one entry per city).
   * b.) Write a program that creates a dictionary where the keys are the cities and the values are the number of records (rows) for that city in the data.
   * c.) Write a program that calculates the mean population for each city obtained by averaging the values of pop.
   * d.) Write a program that calculates the mean population for each city and year.
-* **Problem 2** 3.8.2  Red Queen in Fruit Flies from *Computing Skills for Biologists: A Toolbox* 
+* **Problem 1b** 3.8.2  Red Queen in Fruit Flies from *Computing Skills for Biologists: A Toolbox* 
 Singh et al. (2015) show that, when infected with a parasite, the four genetic lines of *D. melanogaster* respond by increasing the production of recombinant offspring (arguably, trying to produce new recombinants able to escape the parasite). They show that the same outcome is not achieved by artificially wounding the flies. The data needed to replicate the main claim (figure 2 of the original article) is contained in the file Singh2015_data.csv. Open the file, and compute the mean RecombinantFraction for each *Drosophilia* Line, and InfectionStatus (W for wounded and I for infected). Print the results in the following form:
 Line 45 Average Recombination Rate:
 W : 0.187
 I : 0.191
 * [My Solution/Code](Assignments/assignment-11-Csaenz10.txt)
 
-* **Problem 3** 4.10.1 Assortative Mating in Animals from *Computing Skills for Biologists: A Toolbox*
+* **Problem 2** 4.10.1 Assortative Mating in Animals from *Computing Skills for Biologists: A Toolbox*
 Jiang et al. (2013) studied the assortative mating in animals. They compiled a large database, reporting the results of many experiments on mating. In particular, for several taxa they provide the value of correlation among the sizes of the mates. A positive value of r stands for assortative mating (large animals tend to mate with large animals), and a negative value for disassortative mating.
   * a.) You can find the data in good_code/data/Jiang2013_data.csv. Write a function that takes as input the desired Taxon and returns the mean value of r.
   * b.) You should see that fish have a positive value of r, but that this is also true for other taxa. Is the mean value of r especially high for fish? To test this, compute a *p-value* by repeatedly sampling 37 values of r(37 experiments on fish are reported in the database) at random, and calculating the probability of observing a higher mean value of r. To get an accurate estimate of the *p-value*, use 50,000 randomizations.
