@@ -9,8 +9,21 @@
   * c.) Determine whether the plants significantly differ at the time points 1 and 2 using a paired t-test.
   * [My Solution/Code](Assignments/assignment-06-Csaenz10-answers.R)
 
-* **Problem 2** We will be analyzing the `age_count_2020-07-13_2020-10-11.xlsx` data se. This data consists of the date that a COVID-19 test from somebody residing in Nueces County comes back positive (LABDATE) the age of the person (AGE_YEARS). Each row is a person.  There are 4 worksheets in the excel workbook, one per month from July to October. Your goal is to complete the tasks and create an R script that will work when this repo is cloned to any computer. I encourage you to make tidyverse pipelines, where the responses from several questions are assembled in one or a few pipelines. When you are complete, submit by pushing the changes to github. Create an R script named `ageCovidSummary.R` in your exam repo and set the working directory with the following command:
-
+* **Problem 2** We will be analyzing the `age_count_2020-07-13_2020-10-11.xlsx` data set. This data consists of the date that a COVID-19 test from somebody residing in Nueces County comes back positive (LABDATE) the age of the person (AGE_YEARS). Each row is a person.  There are 4 worksheets in the excel workbook, one per month from July to October. Your goal is to complete the tasks and create an R script that will work when this repo is cloned to any computer. I encourage you to make tidyverse pipelines, where the responses from several questions are assembled in one or a few pipelines. When you are complete, submit by pushing the changes to github. 
+  * Create an R script named `ageCovidSummary.R` in your exam repo and set the working directory with the following command: setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+  * Load the following libraries (install if necessary):
+    * tidyverse
+    * readxl
+    * janitor
+    * lubridate
+  * Referring to lecture 8 (some code will need to be altered), read the data from age_count_2020-07-13_2020-10-11.xlsx into a tibble named covid_cases_age and then do the following in a single pipeline:
+    * format the column names
+    * make a new column called date and format it as YYYY-MM-DD using ymd()
+    * make a new column called age_class that evaluates the the values in age_years and assigns them to the proper 20 yr age bin: 0-19, 20-39, 40-59, 60-79, 80+
+      * use case_when() for this
+    * group the tibble by date and age_class
+    * use summarise() to transform the tibble so that each row is a unique combination of date and age_class, and the number of positive cases in each age class on each date is stored in a column called new_cases
+    * If done properly, this is how covid_cases_age will look:
 * [My Solution/Code](Assignments/ageCovidSummary.R)
 
 
