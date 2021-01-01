@@ -7,6 +7,7 @@
   * Write a for loop that processes all images using the function getArea, which is provided in CSB/r/solutions/getArea.R. The function accepts a single file name as an argument, and returns the projected leaf area, measured in pixels. Your loop should record the leaf area for each image and store it in the data frame results. To loop over all files, you can use the function list.files along with its pattern matching option, to produce a list of all the files with extension .jpg in the directory SC/r/data/leafarea/. Work in your sandbox or change paths in the getArea.R function accordingly.
   * Plot the area of each plant as measured ar the time point 1 verses time point 2.
   * Determine whether the plants significantly differ at the time points 1 and 2 using a paired t-test.
+  
  [My Solution/Code](Assignments/assignment-06-Csaenz10-answers.R)
 
 **Problem 2** We will be analyzing the `age_count_2020-07-13_2020-10-11.xlsx` data set; This data consists of the date that a COVID-19 test from somebody residing in Nueces County comes back positive (LABDATE) the age of the person (AGE_YEARS). Each row is a person. There are 4 worksheets in the excel workbook, one per month from July to October. Your goal is to complete the tasks and create an R script that will work when this repo is cloned to any computer. I encourage you to make tidyverse pipelines, where the responses from several questions are assembled in one or a few pipelines. When you are complete, submit by pushing the changes to github.
@@ -106,6 +107,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 * I have noticed a pattern where the elderly are the last age group to experience a spike in COVID cases after a local outbreak.  Modify your code from question 3 above to make a plot with `new_cases_per10k` on the y axis.  Is the figure consistent with my observations from other time periods? Which figure, this one or the one from question 3 better portrays the level of COVID infection within and among age classes?  Why?
 
 ![](nueces_new-cases-per10k_age-class.png)
+
 [My Solution/Code](Assignments/ageCovidSummary.R)
 
 
@@ -127,12 +129,14 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 Line 45 Average Recombination Rate:
 W : 0.187
 I : 0.191
+
 [My Solution/Code](Assignments/assignment-11-Csaenz10.txt)
 
 **Problem 2** 4.10.1 Assortative Mating in Animals from *Computing Skills for Biologists: A Toolbox*; Jiang et al. (2013) studied the assortative mating in animals. They compiled a large database, reporting the results of many experiments on mating. In particular, for several taxa they provide the value of correlation among the sizes of the mates. A positive value of r stands for assortative mating (large animals tend to mate with large animals), and a negative value for disassortative mating.
   * You can find the data in good_code/data/Jiang2013_data.csv. Write a function that takes as input the desired Taxon and returns the mean value of r.
   * You should see that fish have a positive value of r, but that this is also true for other taxa. Is the mean value of r especially high for fish? To test this, compute a *p-value* by repeatedly sampling 37 values of r(37 experiments on fish are reported in the database) at random, and calculating the probability of observing a higher mean value of r. To get an accurate estimate of the *p-value*, use 50,000 randomizations.
   * Repeat the procedure for all taxa.
+
 [My Solution/Code](Assignments/assignment12.txt)
 
 
