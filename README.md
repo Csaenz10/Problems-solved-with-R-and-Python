@@ -3,22 +3,21 @@
 <details><summary>R PROBLEMS</summary>
 <p>
 
-* **Problem 1** 8.23.3 from *Computing Skills for Biologists: A Toolbox* 
-  * In this excersize, we will get a glimpse of the image processing capabilities of R. We want to determine the projected leaf area of plants using photos, and analyze whether the leaves have grown significantly over the course of two days. The directory CSB/r/data/leafarea/ contains images of plants at two time points (t1 and t2). The data have been collected by Madlen.
+* **Problem 1** 8.23.3 from *Computing Skills for Biologists: A Toolbox* In this excersize, we will get a glimpse of the image processing capabilities of R. We want to determine the projected leaf area of plants using photos, and analyze whether the leaves have grown significantly over the course of two days. The directory CSB/r/data/leafarea/ contains images of plants at two time points (t1 and t2). The data have been collected by Madlen.
   * a.) Write a for loop that processes all images using the function getArea, which is provided in CSB/r/solutions/getArea.R. The function accepts a single file name as an argument, and returns the projected leaf area, measured in pixels. Your loop should record the leaf area for each image and store it in the data frame results. To loop over all files, you can use the function list.files along with its pattern matching option, to produce a list of all the files with extension .jpg in the directory SC/r/data/leafarea/. Work in your sandbox or change paths in the getArea.R function accordingly.
   * b.) Plot the area of each plant as measured ar the time point 1 verses time point 2.
   * c.) Determine whether the plants significantly differ at the time points 1 and 2 using a paired t-test.
   * [My Solution/Code](Assignments/assignment-06-Csaenz10-answers.R)
 
 * **Problem 2** We will be analyzing the `age_count_2020-07-13_2020-10-11.xlsx` data se. This data consists of the date that a COVID-19 test from somebody residing in Nueces County comes back positive (LABDATE) the age of the person (AGE_YEARS). Each row is a person.  There are 4 worksheets in the excel workbook, one per month from July to October. Your goal is to complete the tasks and create an R script that will work when this repo is cloned to any computer. I encourage you to make tidyverse pipelines, where the responses from several questions are assembled in one or a few pipelines. When you are complete, submit by pushing the changes to github.
- * a.) Create an R script named `ageCovidSummary.R` in your exam repo and set the working directory with the following command:
+  * a.) Create an R script named `ageCovidSummary.R` in your exam repo and set the working directory with the following command:
 
 ```r 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 ```
- b.) Load the following libraries (and install if necessary): tidyverse, readxl, janitor,lubridate
 
-#### 2. Referring to lecture 8, read the data from `age_count_2020-07-13_2020-10-11.xlsx` into a tibble named `covid_cases_age` and then do the following in a single pipeline:
+  * b.) Load the following libraries (and install if necessary): tidyverse, readxl, janitor,lubridate
+  * c.) Referring to lecture 8, read the data from `age_count_2020-07-13_2020-10-11.xlsx` into a tibble named `covid_cases_age` and then do the following in a single pipeline:
 
   * format the column names
   
@@ -54,18 +53,11 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
     10 2020-07-14 80+              10
     # ... with 423 more rows
     ```
-
-___
-
-
-#### 3. Create the following plot from `covid_cases_age`
+  * d.) Create the following plot from `covid_cases_age`
 
 ![](nueces_new-cases_age-class.png)
 
-
-___
-
-#### 4. Recreate the following plot from `covid_cases_age`.  Hints: 
+  * e.) Recreate the following plot from `covid_cases_age`.  Hints: 
   
   * refer to lecture 8 where we used functions to add day of week and month to a tibble
   
@@ -77,10 +69,7 @@ ___
 
 ![](nueces_mean-new-cases_day-ageclass.png)
 
-___
-
-
-#### 5. There are different numbers of people in the age brackets and thus we might expect more positive cases in some age brackets than others.  Read in the `Texas_Age_Demographic_Data.csv` file and process it down to a tibble named `nueces_demographics` with just the total number of people in each 20 year age bracket in Nueces county using tidyverse commands. The tibble should have 5 rows and 2 columns.  Name the columns `age_class` and `num_people` as follows:
+  * f.) There are different numbers of people in the age brackets and thus we might expect more positive cases in some age brackets than others.  Read in the `Texas_Age_Demographic_Data.csv` file and process it down to a tibble named `nueces_demographics` with just the total number of people in each 20 year age bracket in Nueces county using tidyverse commands. The tibble should have 5 rows and 2 columns.  Name the columns `age_class` and `num_people` as follows:
 
 ```r 
 > nueces_demographics
@@ -94,17 +83,11 @@ ___
 5 80+            16584
 ```
 
-___
-
-
-#### 6. Recreate the following plot with the data in the `nueces_demographics` tibble.  The font size of the axis titles is 20 and the font size of the axis values is 18.  Hint: the [R Graphics Cookbook](http://www.cookbook-r.com/Graphs/) could be useful here.
+  * g.) Recreate the following plot with the data in the `nueces_demographics` tibble.  The font size of the axis titles is 20 and the font size of the axis values is 18.  Hint: the [R Graphics Cookbook](http://www.cookbook-r.com/Graphs/) could be useful here.
 
 ![](nueces_num-people_age-class.png)
 
-___
-
-
-#### 7. Now we can use the demographic data to calculate the number of new cases relative to the number of people in each age class. Join `covid_cases_age` and `nueces_demographics` together and save the new tibble as `covid_cases_age_census`. Add a column named `new_cases_per10k` with values calculated as follows: `10000*new_cases/num_people`.  The result will be a tibble like `covid_cases_age` but with 2 additional columns :
+  * h.) Now we can use the demographic data to calculate the number of new cases relative to the number of people in each age class. Join `covid_cases_age` and `nueces_demographics` together and save the new tibble as `covid_cases_age_census`. Add a column named `new_cases_per10k` with values calculated as follows: `10000*new_cases/num_people`.  The result will be a tibble like `covid_cases_age` but with 2 additional columns :
 
 ```r 
 > covid_cases_age_census
@@ -125,15 +108,11 @@ ___
 # ... with 423 more rows
 ```
 
-___
-
-
-#### 8. I have noticed a pattern where the elderly are the last age group to experience a spike in COVID cases after a local outbreak.  Modify your code from question 3 above to make a plot with `new_cases_per10k` on the y axis.  Is the figure consistent with my observations from other time periods? Which figure, this one or the one from question 3 better portrays the level of COVID infection within and among age classes?  Why?
+  i.) I have noticed a pattern where the elderly are the last age group to experience a spike in COVID cases after a local outbreak.  Modify your code from question 3 above to make a plot with `new_cases_per10k` on the y axis.  Is the figure consistent with my observations from other time periods? Which figure, this one or the one from question 3 better portrays the level of COVID infection within and among age classes?  Why?
 
 ![](nueces_new-cases-per10k_age-class.png)
 
-
-
+* [My Solution/Code](Assignments/ageCovidSummary.R)
 
 
 </p>
@@ -143,9 +122,14 @@ ___
 <details><summary>PYTHON PROBLEMS</summary>
 <p>
 
-* [Problem 1](Assignments/assignment-11-Csaenz10.txt)
+* **Problem 1** 3.8.1 from *Computing Skills for Biologists: A Toolbox*
+Description
+* **Problem 2** 3.8.2 from *Computing Skills for Biologists: A Toolbox*
+Description
+* [My Solution/Code](Assignments/assignment-11-Csaenz10.txt)
 
-* [Problem 2](Assignments/assignment12.txt)
+* **Problem 3** 4.10.1 from *Computing Skills for Biologists: A Toolbox*
+* [My Solution/Code](Assignments/assignment12.txt)
 
 
 </p>
