@@ -22,7 +22,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
     * readxl
     * janitor
     * lubridate
-  * Referring to lecture 8 (some code will need to be altered), read the data from age_count_2020-07-13_2020-10-11.xlsx into a tibble named covid_cases_age and then do the following in a single pipeline:
+* Referring to lecture 8 (some code will need to be altered), read the data from age_count_2020-07-13_2020-10-11.xlsx into a tibble named covid_cases_age and then do the following in a single pipeline:
     * format the column names
     * make a new column called date and format it as YYYY-MM-DD using ymd()
     * make a new column called age_class that evaluates the the values in age_years and assigns them to the proper 20 yr age bin: 0-19, 20-39, 40-59, 60-79, 80+
@@ -51,9 +51,61 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
     ```
     
   
-  * Create the following plot from `covid_cases_age`
+* Create the following plot from `covid_cases_age`
   
-  ![](nueces_new-cases_age-class.png)
+![](nueces_new-cases_age-class.png)
+  
+* Recreate the following plot from `covid_cases_age`.  Hints: 
+    * refer to lecture 8 where we used functions to add day of week and month to a tibble
+  * refer to text book or search web for solution to making error bars, you will need to calculate the mean and sd for each row before initiating the plot
+  * search the web for solution to allowing y axes to freely vary depending upon age class
+  * the [R Graphics Cookbook](http://www.cookbook-r.com/Graphs/) could be useful here
+
+![](nueces_mean-new-cases_day-ageclass.png)
+
+* There are different numbers of people in the age brackets and thus we might expect more positive cases in some age brackets than others.  Read in the `Texas_Age_Demographic_Data.csv` file and process it down to a tibble named `nueces_demographics` with just the total number of people in each 20 year age bracket in Nueces county using tidyverse commands. The tibble should have 5 rows and 2 columns.  Name the columns `age_class` and `num_people` as follows:
+
+```r 
+> nueces_demographics
+# A tibble: 5 x 2
+  age_class num_people
+  <chr>          <dbl>
+1 0-19           64181
+2 20-39         114717
+3 40-59          95495
+4 60-79          70266
+5 80+            16584
+```
+
+* Recreate the following plot with the data in the `nueces_demographics` tibble.  The font size of the axis titles is 20 and the font size of the axis values is 18.  Hint: the [R Graphics Cookbook](http://www.cookbook-r.com/Graphs/) could be useful here.
+
+![](nueces_num-people_age-class.png)
+
+* Now we can use the demographic data to calculate the number of new cases relative to the number of people in each age class. Join `covid_cases_age` and `nueces_demographics` together and save the new tibble as `covid_cases_age_census`. Add a column named `new_cases_per10k` with values calculated as follows: `10000*new_cases/num_people`.  The result will be a tibble like `covid_cases_age` but with 2 additional columns :
+
+```r 
+> covid_cases_age_census
+# A tibble: 433 x 5
+# Groups:   date [91]
+   date       age_class new_cases num_people new_cases_per10k
+   <date>     <chr>         <int>      <dbl>            <dbl>
+ 1 2020-07-13 0-19             44      64181             6.86
+ 2 2020-07-13 20-39            73     114717             6.36
+ 3 2020-07-13 40-59            84      95495             8.80
+ 4 2020-07-13 60-79            49      70266             6.97
+ 5 2020-07-13 80+               3      16584             1.81
+ 6 2020-07-14 0-19             61      64181             9.50
+ 7 2020-07-14 20-39           213     114717            18.6 
+ 8 2020-07-14 40-59           219      95495            22.9 
+ 9 2020-07-14 60-79           102      70266            14.5 
+10 2020-07-14 80+              10      16584             6.03
+# ... with 423 more rows
+```
+
+
+* I have noticed a pattern where the elderly are the last age group to experience a spike in COVID cases after a local outbreak.  Modify your code from question 3 above to make a plot with `new_cases_per10k` on the y axis.  Is the figure consistent with my observations from other time periods? Which figure, this one or the one from question 3 better portrays the level of COVID infection within and among age classes?  Why?
+
+![](nueces_new-cases-per10k_age-class.png)
 [My Solution/Code](Assignments/ageCovidSummary.R)
 
 
