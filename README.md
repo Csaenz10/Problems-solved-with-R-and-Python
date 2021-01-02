@@ -80,7 +80,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 * Recreate the following plot with the data in the `nueces_demographics` tibble.  The font size of the axis titles is 20 and the font size of the axis values is 18.  Hint: the [R Graphics Cookbook](http://www.cookbook-r.com/Graphs/) could be useful here.
 
-![](nueces_num-people_age-class.png)
+![](R_Problem_2_Files/nueces_num-people_age-class.png)
 
 * Now we can use the demographic data to calculate the number of new cases relative to the number of people in each age class. Join `covid_cases_age` and `nueces_demographics` together and save the new tibble as `covid_cases_age_census`. Add a column named `new_cases_per10k` with values calculated as follows: `10000*new_cases/num_people`.  The result will be a tibble like `covid_cases_age` but with 2 additional columns :
 
@@ -106,7 +106,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 * I have noticed a pattern where the elderly are the last age group to experience a spike in COVID cases after a local outbreak.  Modify your code from question 3 above to make a plot with `new_cases_per10k` on the y axis.  Is the figure consistent with my observations from other time periods? Which figure, this one or the one from question 3 better portrays the level of COVID infection within and among age classes?  Why?
 
-![](nueces_new-cases-per10k_age-class.png)
+![](R_Problem_2_Files/nueces_new-cases-per10k_age-class.png)
 
 [My Solution/Code](Assignments/ageCovidSummary.R)
 
