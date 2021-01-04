@@ -10,7 +10,7 @@
   
  [My Solution/Code](Assignments/assignment-06-Csaenz10-answers.R)
 
-**Problem 2** We will be analyzing the `age_count_2020-07-13_2020-10-11.xlsx` data set; This data consists of the date that a COVID-19 test from somebody residing in Nueces County comes back positive (LABDATE) the age of the person (AGE_YEARS). Each row is a person. There are 4 worksheets in the excel workbook, one per month from July to October. Your goal is to complete the tasks and create an R script that will work when this repo is cloned to any computer. I encourage you to make tidyverse pipelines, where the responses from several questions are assembled in one or a few pipelines. When you are complete, submit by pushing the changes to github.
+**Problem 2** We will be analyzing the `age_count_2020-07-13_2020-10-11.xlsx` data set; This data consists of the date that a COVID-19 test from somebody residing in Nueces County comes back positive (LABDATE) and the age of the person (AGE_YEARS). Each row is a person. There are 4 worksheets in the excel workbook, one per month from July to October. Your goal is to complete the tasks and create an R script that will work when this repo is cloned to any computer. I encourage you to make tidyverse pipelines, where the responses from several questions are assembled in one or a few pipelines.
   * Create an R script named `ageCovidSummary.R` in your exam repo and set the working directory with the following command: 
 
 ```r
@@ -18,12 +18,8 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 ```
 
 
-* Load the following libraries (install if necessary):
-    * tidyverse
-    * readxl
-    * janitor
-    * lubridate
-* Referring to lecture 8 (some code will need to be altered), read the data from age_count_2020-07-13_2020-10-11.xlsx into a tibble named covid_cases_age and then do the following in a single pipeline:
+* Load the following libraries (install if necessary): tidyverse, readxl, janitor, and lubridate
+* Read the data from age_count_2020-07-13_2020-10-11.xlsx into a tibble named covid_cases_age and then do the following in a single pipeline:
     * format the column names
     * make a new column called date and format it as YYYY-MM-DD using ymd()
     * make a new column called age_class that evaluates the the values in age_years and assigns them to the proper 20 yr age bin: 0-19, 20-39, 40-59, 60-79, 80+
@@ -56,15 +52,16 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
   
 ![](nueces_new-cases_age-class.png)
   
-* Recreate the following plot from `covid_cases_age`.  Hints: 
-    * refer to lecture 8 where we used functions to add day of week and month to a tibble
-  * refer to text book or search web for solution to making error bars, you will need to calculate the mean and sd for each row before initiating the plot
+* Recreate the following plot from `covid_cases_age`.
+* Hints: 
+  * refer to lecture 8 where we used functions to add day of week and month to a tibble
+  * refer to textbook/web for solution to making error bars, you will need to calculate the mean and sd for each row before initiating the plot
   * search the web for solution to allowing y axes to freely vary depending upon age class
   * the [R Graphics Cookbook](http://www.cookbook-r.com/Graphs/) could be useful here
 
 ![](nueces_mean-new-cases_day-ageclass.png)
 
-* There are different numbers of people in the age brackets and thus we might expect more positive cases in some age brackets than others.  Read in the `Texas_Age_Demographic_Data.csv` file and process it down to a tibble named `nueces_demographics` with just the total number of people in each 20 year age bracket in Nueces county using tidyverse commands. The tibble should have 5 rows and 2 columns.  Name the columns `age_class` and `num_people` as follows:
+* There are different numbers of people in the age brackets and thus we might expect more positive cases in some age brackets than others. Read in the `Texas_Age_Demographic_Data.csv` file and process it down to a tibble named `nueces_demographics` with just the total number of people in each 20 year age bracket in Nueces county using tidyverse commands. The tibble should have 5 rows and 2 columns.  Name the columns `age_class` and `num_people` as follows:
 
 ```r 
 > nueces_demographics
@@ -78,7 +75,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 5 80+            16584
 ```
 
-* Recreate the following plot with the data in the `nueces_demographics` tibble.  The font size of the axis titles is 20 and the font size of the axis values is 18.  Hint: the [R Graphics Cookbook](http://www.cookbook-r.com/Graphs/) could be useful here.
+* Recreate the following plot with the data in the `nueces_demographics` tibble. The font size of the axis titles is 20 and the font size of the axis values is 18.
 
 ![](R_Problem_2_Files/nueces_num-people_age-class.png)
 
@@ -104,23 +101,15 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 ```
 
 
-* I have noticed a pattern where the elderly are the last age group to experience a spike in COVID cases after a local outbreak.  Modify your code from question 3 above to make a plot with `new_cases_per10k` on the y axis.  Is the figure consistent with my observations from other time periods? Which figure, this one or the one from question 3 better portrays the level of COVID infection within and among age classes?  Why?
+* I have noticed a pattern where the elderly are the last age group to experience a spike in COVID cases after a local outbreak. Modify your code from question 3 above to make a plot with `new_cases_per10k` on the y axis. Is the figure consistent with my observations from other time periods? Which figure, this one or the one from question 3 better portrays the level of COVID infection within and among age classes? Why?
 
 ![](R_Problem_2_Files/nueces_new-cases-per10k_age-class.png)
 
 [My Solution/Code](Assignments/ageCovidSummary.R)
 
-**Problem 3**
+**Problem 3** DNA Barcoding; You will perform DNA barcoding on the samples collected during the [2019 Texas Bioblitz](http://www.tamucc.edu/news/2019/08/082819-tamucc-collaborates-with-smithsonian-utmsi-on-marine-bioblitz.html#.XWmdQihKhaR). This will involve downloading the command line BLAST software package which is used to search GenBank, running BLAST searches from the `bash` command line, and making graphs of the output using `R`.
 
-## DNA Barcoding
-
-For the final exam, you will perform DNA barcoding on the samples collected during the [2019 Texas Bioblitz](http://www.tamucc.edu/news/2019/08/082819-tamucc-collaborates-with-smithsonian-utmsi-on-marine-bioblitz.html#.XWmdQihKhaR) 
-
-This will involve downloading the command line BLAST software package which is used to search GenBank, running BLAST searches from the `bash` command line, and making graphs of the output using `R`.
-
-### Installing BLAST 
-
-If you are using `Ubuntu`, follow these instructions:
+* Installing BLAST; If you are using `Ubuntu`, follow these instructions:
 
 ```bash
 # download the prcompiled unix binary which is in a compressed tarball 
@@ -131,33 +120,21 @@ tar -zxvpf ncbi-blast-2.8.1+-x64-linux.tar.gz
 
 ```
 
-You should now have a directory called `ncbi-blast-2.8.1+` and the BLAST software tools are located in `ncbi-blast-2.8.1+/bin`
 
-You can move the BLAST tools into a directory in your PATH such as `/usr/local/bin` so that you can access blast from any directory.  
+* You should now have a directory called `ncbi-blast-2.8.1+` and the BLAST software tools are located in `ncbi-blast-2.8.1+/bin` You can move the BLAST tools into a directory in your PATH such as `/usr/local/bin` so that you can access blast from any directory. Confirm that `blastn` will run by checking the version and viewing the manual.
 
 ```bash
 sudo cp ncbi-blast-2.8.1+/bin/* /usr/local/bin
 source ~/.bashrc
 ```
 
-Confirm that `blastn` will run by checking the version and viewing the manual (assuming that you are in your main exam directory)
 
-```bash
-blastn -version
-blastn -help
-```
-
-### Running a BLAST Search from Command Line
-
-Let us run a couple BLAST searches.  We will use the nucleotide database search tool called `blastn`
-
-The following sequence was collected from a fish during the [2019 Texas Bioblitz](http://www.tamucc.edu/news/2019/08/082819-tamucc-collaborates-with-smithsonian-utmsi-on-marine-bioblitz.html#.XWmdQihKhaR) .  The goal of this effort was to document the diversity of marine life in the Coastal Bend of Texas and create taxonomic-expert-verified DNA barcodes to improve public databases.
+* Run a couple BLAST searches using the nucleotide database search tool called `blastn`. The following sequence was collected from a fish during the [2019 Texas Bioblitz](http://www.tamucc.edu/news/2019/08/082819-tamucc-collaborates-with-smithsonian-utmsi-on-marine-bioblitz.html#.XWmdQihKhaR). The goal of this effort was to document the diversity of marine life in the Coastal Bend of Texas and create taxonomic-expert-verified DNA barcodes to improve public databases.
 
 ```bash
 blastn -db nt -query 2019-USATXS-0202_Chasmoides-logimaxilla_Fish_F1_2019-11-19_C02.1.fasta -out results.out -remote
 ```
 
-It can take a while (a few seconds to minutes) for the blast search to finish because (1) it takes time to search all of the nucleotide sequences in the database and (2) we are searching the online database, so you may have to wait for the searches of others to finish before yours can start.
 
 The results should look like this if you use `less -S` to view the `results.out` file
 
@@ -231,20 +208,16 @@ Note that in the output, the line labeled "Fields" contains the column headers:
 
 Now let us search on multiple sequences.  
 
-If you have not done so already (Q4) concatenate the two fasta files in a new file called `two_seqs.fasta` (extra credit if you also save this code into a bash script in your repo)
+If you have not done so already concatenate the two fasta files in a new file called `two_seqs.fasta`
 
 * `2019-USATXS-0703_Gobiidae-sp_Fish_R1_2019-11-12_H06.1.fasta`
 * `2019-USATXS-0202_Chasmoides-logimaxilla_Fish_F1_2019-11-19_C02.1.fasta`
 
-Then revise the blastn search to query `two_seqs.fasta`, change the max number of sequences returned to be 20, and save the blast results into a file called `results_twoseqs.out` (Q5) (extra credit if you also save this code into a bash script in your repo)
+Then revise the blastn search to query `two_seqs.fasta`, change the max number of sequences returned to be 20, and save the blast results into a file called `results_twoseqs.out`
 
-### Using R to Visualize Output from Blast
-
-It would take too long for you to blast all of the sequences we generated in the Bioblitz, so I did it for you.  Rather than concatenating two fasta sequences together, I concatenated all of them and ran a blast search very similar to the one you just ran.  The results of that blast search on 601 sequences can be found in `results_blast.out`
-I used bash tools such as `grep` `cut` `paste` to convert the blast output to a file with 1 row per query sequence called `tophit.tsv`.  I further manipulated `tophit.tsv` to add columns, which resulted in the final file `tophit4.tsv` which can be read into R.
+* Using R to Visualize Output from Blast. It would take too long for you to blast all of the sequences we generated in the Bioblitz, so I did it for you. Rather than concatenating two fasta sequences together, I concatenated all of them and ran a blast search very similar to the one you just ran. The results of that blast search on 601 sequences can be found in `results_blast.out`. I used bash tools such as `grep` `cut` `paste` to convert the blast output to a file with 1 row per query sequence called `tophit.tsv`. I further manipulated `tophit.tsv` to add columns, which resulted in the final file `tophit4.tsv` which can be read into R.
 
 The columns in `tophit4.tsv` are:
-
 * Sample	-	bioblitz sample name
 * TaxExpSpId	-	species id given to sample by taxonomic expert-verified
 * GenBankSpID	-	the specied id of the most similar sequence in GenBank to our bioblitz sample sequence
@@ -261,14 +234,12 @@ The columns in `tophit4.tsv` are:
 * Err_MatchQual	-	this is a combination of the aforementioned categorical columns with additional categories inidicating samples that have been mislabeled in our data sheets and need to be fixed or 
 
 
-Your task is to make an R script called `tophit4.R` to visualize the data in `tophit4.tsv`
-
-You will need to 
-* (ubuntu-win only) make sure `tophit4.tsv` accessible by RStudio.  If you cloned your repo to a windows-accessible directory such as `/mnt/c/Users/YOURUSERNAME/Documents/final_exam`, then you should be fine
-* set your R-studio working directory to the location of `tophit4.tsv`
-           * I would create the R file in your repo, then use `setwd(dirname(rstudioapi::getActiveDocumentContext()$path))`
-* use the `tidyverse` tool called `read_tsv` to read in `tophit4.tsv`
-* use `ggplot` to recreate the following figures in the following files `Rplot.png`, `Rplot2.png`, `Rplot3.png`
+* Your task is to make an R script called `tophit4.R` to visualize the data in `tophit4.tsv`. You will need to 
+  * make sure `tophit4.tsv` accessible by RStudio. If you cloned your repo to a windows-accessible directory such as `/mnt/c/Users/YOURUSERNAME/Documents/final_exam`, then you should be fine
+  * set your R-studio working directory to the location of `tophit4.tsv`
+    * I would create the R file in your repo, then use `setwd(dirname(rstudioapi::getActiveDocumentContext()$path))`
+  * use the `tidyverse` tool called `read_tsv` to read in `tophit4.tsv`
+  * use `ggplot` to recreate the following figures in the following files `Rplot.png`, `Rplot2.png`, `Rplot3.png`
 
 ![](Rplot.png)
 
