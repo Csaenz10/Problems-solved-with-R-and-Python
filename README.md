@@ -111,7 +111,6 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 [My Solution/Code](Assignments/ageCovidSummary.R)
 
 **Problem 3**
-[My Solution/Code](Assignments/tophit4.R)
 
 ## DNA Barcoding
 
@@ -276,6 +275,8 @@ You will need to
 ![](Rplot2.png)
 
 ![](Rplot3.png)
+
+[My Solution/Code](Assignments/tophit4.R)
 
 
 </p>
