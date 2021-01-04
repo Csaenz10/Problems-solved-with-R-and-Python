@@ -110,6 +110,173 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 [My Solution/Code](Assignments/ageCovidSummary.R)
 
+**Problem 3**
+[My Solution/Code](Assignments/tophit4.R)
+
+## DNA Barcoding
+
+For the final exam, you will perform DNA barcoding on the samples collected during the [2019 Texas Bioblitz](http://www.tamucc.edu/news/2019/08/082819-tamucc-collaborates-with-smithsonian-utmsi-on-marine-bioblitz.html#.XWmdQihKhaR) 
+
+This will involve downloading the command line BLAST software package which is used to search GenBank, running BLAST searches from the `bash` command line, and making graphs of the output using `R`.
+
+### Installing BLAST 
+
+If you are using `Ubuntu`, follow these instructions:
+
+```bash
+# download the prcompiled unix binary which is in a compressed tarball 
+wget ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.8.1/ncbi-blast-2.8.1+-x64-linux.tar.gz
+
+# decompress the tarball 
+tar -zxvpf ncbi-blast-2.8.1+-x64-linux.tar.gz
+
+```
+
+You should now have a directory called `ncbi-blast-2.8.1+` and the BLAST software tools are located in `ncbi-blast-2.8.1+/bin`
+
+You can move the BLAST tools into a directory in your PATH such as `/usr/local/bin` so that you can access blast from any directory.  
+
+```bash
+sudo cp ncbi-blast-2.8.1+/bin/* /usr/local/bin
+source ~/.bashrc
+```
+
+Confirm that `blastn` will run by checking the version and viewing the manual (assuming that you are in your main exam directory)
+
+```bash
+blastn -version
+blastn -help
+```
+
+### Running a BLAST Search from Command Line
+
+Let us run a couple BLAST searches.  We will use the nucleotide database search tool called `blastn`
+
+The following sequence was collected from a fish during the [2019 Texas Bioblitz](http://www.tamucc.edu/news/2019/08/082819-tamucc-collaborates-with-smithsonian-utmsi-on-marine-bioblitz.html#.XWmdQihKhaR) .  The goal of this effort was to document the diversity of marine life in the Coastal Bend of Texas and create taxonomic-expert-verified DNA barcodes to improve public databases.
+
+```bash
+blastn -db nt -query 2019-USATXS-0202_Chasmoides-logimaxilla_Fish_F1_2019-11-19_C02.1.fasta -out results.out -remote
+```
+
+It can take a while (a few seconds to minutes) for the blast search to finish because (1) it takes time to search all of the nucleotide sequences in the database and (2) we are searching the online database, so you may have to wait for the searches of others to finish before yours can start.
+
+The results should look like this if you use `less -S` to view the `results.out` file
+
+```bash
+BLASTN 2.8.1+
+
+
+Reference: Zheng Zhang, Scott Schwartz, Lukas Wagner, and Webb
+Miller (2000), "A greedy algorithm for aligning DNA sequences", J
+Comput Biol 2000; 7(1-2):203-14.
+
+
+
+Database: Nucleotide collection (nt)
+           55,311,125 sequences; 252,862,725,426 total letters
+
+
+
+Query= 2019_USATXS_0202_Chasmoides-logimaxilla_Fish_F1
+
+Length=645
+
+RID: YU2FU0A6014
+                                                                      Score     E
+Sequences producing significant alignments:                          (Bits)  Value
+
+JQ842579.1  Menidia sp. BOLD:AAD7634 voucher SMSA7149 cytochrome ...  708     0.0
+HQ573276.1  Menidia beryllina voucher MXIV0811 cytochrome oxidase...  708     0.0
+HQ573278.1  Menidia beryllina voucher MXIV0813 cytochrome oxidase...  702     0.0
+HQ573275.1  Menidia beryllina voucher MXIV0810 cytochrome oxidase...  702     0.0
+KF930119.1  Menidia beryllina voucher KUT 1639 cytochrome oxidase...  697     0.0
+JQ842578.1  Menidia sp. BOLD:AAD7634 voucher SMSA7147 cytochrome ...  693     0.0
+JQ842577.1  Menidia sp. BOLD:AAD7634 voucher SMSA7148 cytochrome ...  693     0.0
+HQ573333.1  Menidia beryllina voucher MXIV0701 cytochrome oxidase...  675     0.0
+HQ573332.1  Menidia beryllina voucher MXIV0700 cytochrome oxidase...  675     0.0
+HQ573334.1  Menidia beryllina voucher MXIV0702 cytochrome oxidase...  669     0.0
+HQ564609.1  Menidia colei voucher NEC-0221 cytochrome oxidase sub...  669     0.0
+KX688296.1  Menidia beryllina isolate LS01 cytochrome c oxidase s...  664     0.0
+HQ573335.1  Menidia beryllina voucher MXIV0703 cytochrome oxidase...  664     0.0
+KJ921739.1  Chirostoma humboldtianum mitochondrion, complete genome   652     0.0
+EU751747.1  Chirostoma riojai voucher IPN 035 cytochrome oxidase ...  636     4e-178
+EU751737.1  Chirostoma jordani voucher IPN 026 cytochrome oxidase...  636     4e-178
+EU751735.1  Chirostoma jordani voucher IPN 028 cytochrome oxidase...  636     4e-178
+EU751749.1  Chirostoma riojai voucher IPN 033 cytochrome oxidase ...  630     2e-176
+EU751748.1  Chirostoma riojai voucher IPN 034 cytochrome oxidase ...  630     2e-176
+EU751742.1  Chirostoma jordani voucher IPN 008 cytochrome oxidase...  630     2e-176
+EU751741.1  Chirostoma jordani voucher IPN 009 cytochrome oxidase...  630     2e-176
+EU751739.1  Chirostoma jordani voucher IPN 011 cytochrome oxidase...  630     2e-176
+EU751734.1  Chirostoma jordani voucher IPN 029 cytochrome oxidase...  630     2e-176
+results.out
+```
+
+The output does not provide all of the information we need to determine how good the match is between our query sequence from the Bioblitz and the database sequences in GenBank, so we need to update the settings used in the BLAST search
+
+I looked at the manual for BLAST `blastn -help` as well as the blast results from the [NCBI BLAST website](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PROGRAM=blastn&PAGE_TYPE=BlastSearch&LINK_LOC=blasthome) and the [online BLAST help](https://www.ncbi.nlm.nih.gov/books/NBK279682/) to determine which settings I wanted to use to add columns of information to the output
+
+```bash
+blastn -db nt -query 2019-USATXS-0202_Chasmoides-logimaxilla_Fish_F1_2019-11-19_C02.1.fasta -outfmt "7 qseqid stitle saccver qcovs pident evalue qseq" -max_target_seqs 50 -out results.out -remote
+```
+
+
+Note that in the output, the line labeled "Fields" contains the column headers:
+
+* query id	-	sample name from the fasta file
+* subject title	-	Title of database record matching the query sequence from the bioblitz
+* subject acc.ver	-	GenBank accession number of the record matching the query
+* % query coverage per subject	-	percent of query sequence that can be aligned to the database record
+* % identity	-	percent of aligned nucleotides that match (97% is typically considered a species match by default)
+* evalue	-	"The Expect value (E) is a parameter that describes the number of hits one can "expect" to see by chance when searching a database of a particular size. It decreases exponentially as the Score (S) of the match increases. Essentially, the E value describes the random background noise. For example, an E value of 1 assigned to a hit can be interpreted as meaning that in a database of the current size one might expect to see 1 match with a similar score simply by chance."
+* query seq	-	sequence of the database record aligned to the query sequence
+
+Now let us search on multiple sequences.  
+
+If you have not done so already (Q4) concatenate the two fasta files in a new file called `two_seqs.fasta` (extra credit if you also save this code into a bash script in your repo)
+
+* `2019-USATXS-0703_Gobiidae-sp_Fish_R1_2019-11-12_H06.1.fasta`
+* `2019-USATXS-0202_Chasmoides-logimaxilla_Fish_F1_2019-11-19_C02.1.fasta`
+
+Then revise the blastn search to query `two_seqs.fasta`, change the max number of sequences returned to be 20, and save the blast results into a file called `results_twoseqs.out` (Q5) (extra credit if you also save this code into a bash script in your repo)
+
+### Using R to Visualize Output from Blast
+
+It would take too long for you to blast all of the sequences we generated in the Bioblitz, so I did it for you.  Rather than concatenating two fasta sequences together, I concatenated all of them and ran a blast search very similar to the one you just ran.  The results of that blast search on 601 sequences can be found in `results_blast.out`
+I used bash tools such as `grep` `cut` `paste` to convert the blast output to a file with 1 row per query sequence called `tophit.tsv`.  I further manipulated `tophit.tsv` to add columns, which resulted in the final file `tophit4.tsv` which can be read into R.
+
+The columns in `tophit4.tsv` are:
+
+* Sample	-	bioblitz sample name
+* TaxExpSpId	-	species id given to sample by taxonomic expert-verified
+* GenBankSpID	-	the specied id of the most similar sequence in GenBank to our bioblitz sample sequence
+* GenBankDescription	-	self explanitory
+* TaxId	-	every species has a unique taxonomic id in GenBank, this is that id
+* Accession	-	every sequence has a unique id in GenBank, this is that id
+* PctQueryCoverage	-	percent of query sequence that can be aligned to the database record
+* PctIdentity	-	percent of aligned nucleotides that match (97% is typically considered a species match by default)
+* Escore	-	"The Expect value (E) is a parameter that describes the number of hits one can "expect" to see by chance when searching a database of a particular size. It decreases exponentially as the Score (S) of the match increases. Essentially, the E value describes the random background noise. For example, an E value of 1 assigned to a hit can be interpreted as meaning that in a database of the current size one might expect to see 1 match with a similar score simply by chance."
+* QuerySeq	-	sequence of the database record aligned to the query sequence
+* SpIdMatch	-	do TaxExpSpId and GenBankSpID match exactly?
+* MatchQuality	-	categorical assessment of PctIdentity, >=97 is a SpeciesHit, as PctIdentity decreases, it becomes less likely that the species we sampled has been barcoded
+* CoverageQuality	-	categorical assessment of PctQueryCoverage, if this value is too low then it means that we need a better algorithm to identify the best match
+* Err_MatchQual	-	this is a combination of the aforementioned categorical columns with additional categories inidicating samples that have been mislabeled in our data sheets and need to be fixed or 
+
+
+Your task is to make an R script called `tophit4.R` to visualize the data in `tophit4.tsv`
+
+You will need to 
+* (ubuntu-win only) make sure `tophit4.tsv` accessible by RStudio.  If you cloned your repo to a windows-accessible directory such as `/mnt/c/Users/YOURUSERNAME/Documents/final_exam`, then you should be fine
+* set your R-studio working directory to the location of `tophit4.tsv`
+           * I would create the R file in your repo, then use `setwd(dirname(rstudioapi::getActiveDocumentContext()$path))`
+* use the `tidyverse` tool called `read_tsv` to read in `tophit4.tsv`
+* use `ggplot` to recreate the following figures in the following files `Rplot.png`, `Rplot2.png`, `Rplot3.png`
+
+![](Rplot.png)
+
+![](Rplot2.png)
+
+![](Rplot3.png)
+
 
 </p>
 </details>
