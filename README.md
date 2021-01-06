@@ -50,7 +50,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
   
 * Create the following plot from `covid_cases_age`
   
-![](nueces_new-cases_age-class.png)
+![](R_Problem_2_Files/nueces_new-cases_age-class.png)
 
 
   
@@ -61,7 +61,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
   * search the web for solution to allowing y axes to freely vary depending upon age class
   * the [R Graphics Cookbook](http://www.cookbook-r.com/Graphs/) could be useful here
 
-![](nueces_mean-new-cases_day-ageclass.png)
+![](R_Problem_2_Files/nueces_mean-new-cases_day-ageclass.png)
 
 * There are different numbers of people in the age brackets and thus we might expect more positive cases in some age brackets than others. Read in the `Texas_Age_Demographic_Data.csv` file and process it down to a tibble named `nueces_demographics` with just the total number of people in each 20 year age bracket in Nueces county using tidyverse commands. The tibble should have 5 rows and 2 columns.  Name the columns `age_class` and `num_people` as follows:
 
