@@ -1,5 +1,5 @@
-# Problems solved with R and Python
-### A collection of problems I used R and Python to solve from my computational biology class.
+# Problems solved using Python and R.
+### A collection of problems that we were required to use Python or R to solve from my computational biology class taken this past Fall 2020 semester.
 <details><summary>R PROBLEMS</summary>
 <p>
 
