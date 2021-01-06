@@ -19,14 +19,14 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 
 * Load the following libraries (install if necessary): tidyverse, readxl, janitor, and lubridate
-* Read the data from age_count_2020-07-13_2020-10-11.xlsx into a tibble named covid_cases_age and then do the following in a single pipeline:
+* Read the data from `age_count_2020-07-13_2020-10-11.xlsx` into a tibble named `covid_cases_age` and then do the following in a single pipeline:
     * format the column names
-    * make a new column called date and format it as YYYY-MM-DD using ymd()
-    * make a new column called age_class that evaluates the the values in age_years and assigns them to the proper 20 yr age bin: 0-19, 20-39, 40-59, 60-79, 80+
-      * use case_when() for this
-    * group the tibble by date and age_class
-    * use summarise() to transform the tibble so that each row is a unique combination of date and age_class, and the number of positive cases in each age class on each date is stored in a column called new_cases
-    * If done properly, this is how covid_cases_age will look:
+    * make a new column called `date` and format it as YYYY-MM-DD using `ymd()`
+    * make a new column called `age_class` that evaluates the the values in `age_years` and assigns them to the proper 20 yr age bin: 0-19, 20-39, 40-59, 60-79, 80+
+      * use `case_when()` for this
+    * group the tibble by `date` and `age_class`
+    * use `summarise()` to transform the tibble so that each row is a unique combination of `date` and `age_class`, and the number of positive cases in each age class on each date is stored in a column called `new_cases`
+    * If done properly, this is how `covid_cases_age` will look:
     
     ```r
      > covid_cases_age
