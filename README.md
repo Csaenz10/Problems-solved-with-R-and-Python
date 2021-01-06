@@ -51,6 +51,8 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 * Create the following plot from `covid_cases_age`
   
 ![](nueces_new-cases_age-class.png)
+
+
   
 * Recreate the following plot from `covid_cases_age`.
 * Hints: 
