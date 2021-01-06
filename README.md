@@ -52,7 +52,6 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
   
 ![](R_Problem_2_Files/nueces_new-cases_age-class.png)
 
-
   
 * Recreate the following plot from `covid_cases_age`.
 * Hints: 
@@ -62,6 +61,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
   * the [R Graphics Cookbook](http://www.cookbook-r.com/Graphs/) could be useful here
 
 ![](R_Problem_2_Files/nueces_mean-new-cases_day-ageclass.png)
+
 
 * There are different numbers of people in the age brackets and thus we might expect more positive cases in some age brackets than others. Read in the `Texas_Age_Demographic_Data.csv` file and process it down to a tibble named `nueces_demographics` with just the total number of people in each 20 year age bracket in Nueces county using tidyverse commands. The tibble should have 5 rows and 2 columns.  Name the columns `age_class` and `num_people` as follows:
 
@@ -77,9 +77,11 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 5 80+            16584
 ```
 
+
 * Recreate the following plot with the data in the `nueces_demographics` tibble. The font size of the axis titles is 20 and the font size of the axis values is 18.
 
 ![](R_Problem_2_Files/nueces_num-people_age-class.png)
+
 
 * Now we can use the demographic data to calculate the number of new cases relative to the number of people in each age class. Join `covid_cases_age` and `nueces_demographics` together and save the new tibble as `covid_cases_age_census`. Add a column named `new_cases_per10k` with values calculated as follows: `10000*new_cases/num_people`.  The result will be a tibble like `covid_cases_age` but with 2 additional columns :
 
@@ -106,6 +108,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 * I have noticed a pattern where the elderly are the last age group to experience a spike in COVID cases after a local outbreak. Modify your code from question 3 above to make a plot with `new_cases_per10k` on the y axis. Is the figure consistent with my observations from other time periods? Which figure, this one or the one from question 3 better portrays the level of COVID infection within and among age classes? Why?
 
 ![](R_Problem_2_Files/nueces_new-cases-per10k_age-class.png)
+
 
 [My Solution/Code](Assignments/ageCovidSummary.R)
 
@@ -188,6 +191,7 @@ EU751739.1  Chirostoma jordani voucher IPN 011 cytochrome oxidase...  630     2e
 EU751734.1  Chirostoma jordani voucher IPN 029 cytochrome oxidase...  630     2e-176
 results.out
 ```
+
 
 The output does not provide all of the information we need to determine how good the match is between our query sequence from the Bioblitz and the database sequences in GenBank, so we need to update the settings used in the BLAST search
 
