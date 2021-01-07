@@ -16,15 +16,14 @@
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 ```
 
-
 * Load the following libraries (install if necessary): tidyverse, readxl, janitor, and lubridate
 * Read the data from `age_count_2020-07-13_2020-10-11.xlsx` into a tibble named `covid_cases_age` and then do the following in a single pipeline:
-    * format the column names
-    * make a new column called `date` and format it using `ymd()`
-    * make a new column called `age_class` that evaluates the the values in `age_years` and assigns them to the proper 20 yr age bin: 0-19, 20-39, 40-59, 60-79, 80+
-      * use `case_when()` for this
-    * group the tibble by `date` and `age_class`
-    * use `summarise()` to transform the tibble so that each row is a unique combination of `date` and `age_class`, and the number of positive cases in each age class on each date is stored in a column called `new_cases`
+    * Format the column names.
+    * Make a new column called `date` and format it using `ymd()`.
+    * Make a new column called `age_class` that evaluates the the values in `age_years` and assigns them to the proper 20 yr age bin: (0-19, 20-39, 40-59, 60-79, 80+).
+      * Use `case_when()` for this.
+    * Group the tibble by `date` and `age_class`.
+    * Use `summarise()` to transform the tibble so that each row is a unique combination of `date` and `age_class`, and the number of positive cases in each age class on each date is stored in a column called `new_cases`.
     * If done properly, this is how `covid_cases_age` will look:
     
     ```r
@@ -46,22 +45,19 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
     # ... with 423 more rows
     ```
     
-  
 * Create the following plot from `covid_cases_age`.
   
 ![](R_Problem_2_Files/nueces_new-cases_age-class.png)
-
   
 * Recreate the following plot from `covid_cases_age`.
 * Hints: 
-  * refer to lecture 8 where we used functions to add day of week and month to a tibble
-  * refer to the textbook/web for solution to making error bars, you will need to calculate the mean and sd for each row before initiating the plot
-  * search the web for solution to allowing y axes to freely vary depending upon age class
+  * Refer to lecture 8 where we used functions to add day of week and month to a tibble.
+  * Refer to the textbook/web for solution to making error bars, you will need to calculate the mean and sd for each row before initiating the plot.
+  * Search the web for solutions to allowing the y axis to freely vary depending upon age class.
 
 ![](R_Problem_2_Files/nueces_mean-new-cases_day-ageclass.png)
 
-
-* There are different numbers of people in the age brackets and thus we might expect more positive cases in some age brackets than others. Read in the `Texas_Age_Demographic_Data.csv` file and process it down to a tibble named `nueces_demographics` with just the total number of people in each 20 year age bracket in Nueces county using tidyverse commands. The tibble should have 5 rows and 2 columns.  Name the columns `age_class` and `num_people` as follows:
+* There are different numbers of people in the age brackets and thus we might expect more positive cases in some age brackets than others. Read in the `Texas_Age_Demographic_Data.csv` file and process it down to a tibble named `nueces_demographics` with just the total number of people in each 20 year age bracket using tidyverse commands. Name the columns `age_class` and `num_people` as follows:
 
 ```r 
 > nueces_demographics
@@ -75,13 +71,11 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 5 80+            16584
 ```
 
-
 * Recreate the following plot with the data in the `nueces_demographics` tibble. The font size of the axis titles is 20 and the font size of the axis values is 18.
 
 ![](R_Problem_2_Files/nueces_num-people_age-class.png)
 
-
-* Now we can use the demographic data to calculate the number of new cases relative to the number of people in each age class. Join `covid_cases_age` and `nueces_demographics` together and save the new tibble as `covid_cases_age_census`. Add a column named `new_cases_per10k` with values calculated as follows: `10000*new_cases/num_people`.  The result will be a tibble like `covid_cases_age` but with 2 additional columns :
+* Now we can use the demographic data to calculate the number of new cases relative to the number of people in each age class. Join `covid_cases_age` and `nueces_demographics` together and save the new tibble as `covid_cases_age_census`. Add a column named `new_cases_per10k` with values calculated as follows: `10000*new_cases/num_people`. The result will be a tibble like `covid_cases_age` but with 2 additional columns:
 
 ```r 
 > covid_cases_age_census
@@ -102,11 +96,9 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # ... with 423 more rows
 ```
 
-
-* There is a pattern where the elderly are the last age group to experience a spike in COVID cases after a local outbreak. Modify your code from question 3 above to make a plot with `new_cases_per10k` on the y axis. Is the figure consistent with my observations from other time periods? Which figure, this one or the one from question 3 better portrays the level of COVID infection within and among age classes? Why?
+* There is a pattern where the elderly are the last age group to experience a spike in COVID cases after a local outbreak. Modify your code from  above to make a plot with `new_cases_per10k` on the y axis. Is the figure consistent with my observations from other time periods? Which figure, this one or the one from above better portrays the level of COVID infection within and among age classes? Why?
 
 ![](R_Problem_2_Files/nueces_new-cases-per10k_age-class.png)
-
 
 [My Solution/Code](Assignments/ageCovidSummary.R)
 
@@ -123,7 +115,6 @@ tar -zxvpf ncbi-blast-2.8.1+-x64-linux.tar.gz
 
 ```
 
-
 * You now have a directory called `ncbi-blast-2.8.1+` and the BLAST software tools are located in `ncbi-blast-2.8.1+/bin` You can move the BLAST tools into a directory in your PATH such as `/usr/local/bin` so that you can access blast from any directory. Confirm that `blastn` will run by checking the version and viewing the manual.
 
 ```bash
@@ -131,13 +122,11 @@ sudo cp ncbi-blast-2.8.1+/bin/* /usr/local/bin
 source ~/.bashrc
 ```
 
-
 * Run BLAST searches using the nucleotide database search tool called `blastn`. The following sequence was collected from a fish during the [2019 Texas Bioblitz](http://www.tamucc.edu/news/2019/08/082819-tamucc-collaborates-with-smithsonian-utmsi-on-marine-bioblitz.html#.XWmdQihKhaR). The goal of this effort was to document the diversity of marine life in the Coastal Bend of Texas and create taxonomic-expert-verified DNA barcodes to improve public databases.
 
 ```bash
 blastn -db nt -query 2019-USATXS-0202_Chasmoides-logimaxilla_Fish_F1_2019-11-19_C02.1.fasta -out results.out -remote
 ```
-
 
 The results should look like this if you use `less -S` to view the `results.out` file
 
@@ -190,13 +179,11 @@ EU751734.1  Chirostoma jordani voucher IPN 029 cytochrome oxidase...  630     2e
 results.out
 ```
 
-
 * The output does not provide everything needed to determine how good the match is between our Bioblitz query sequence and the GenBank database sequences, so we need to update the settings used in the BLAST search. The manual for BLAST `blastn -help` as well as the blast results from the [NCBI BLAST website](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PROGRAM=blastn&PAGE_TYPE=BlastSearch&LINK_LOC=blasthome) and the [online BLAST help](https://www.ncbi.nlm.nih.gov/books/NBK279682/) was used to determine which settings needed to add the columns of information to the output.
 
 ```bash
 blastn -db nt -query 2019-USATXS-0202_Chasmoides-logimaxilla_Fish_F1_2019-11-19_C02.1.fasta -outfmt "7 qseqid stitle saccver qcovs pident evalue qseq" -max_target_seqs 50 -out results.out -remote
 ```
-
 
 * Note that in the output, the line labeled "Fields" contains the column headers:
   * query id	-	sample name from the fasta file
@@ -244,10 +231,8 @@ blastn -db nt -query 2019-USATXS-0202_Chasmoides-logimaxilla_Fish_F1_2019-11-19_
 
 [My Solution/Code](Assignments/tophit4.R)
 
-
 </p>
 </details>
-
 
 <details><summary>PYTHON PROBLEMS</summary>
 <p>
@@ -273,7 +258,6 @@ I : 0.191
   * Repeat the procedure for all taxa.
 
 [My Solution/Code](Assignments/assignment12.txt)
-
 
 </p>
 </details>
