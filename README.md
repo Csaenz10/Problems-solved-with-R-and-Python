@@ -3,21 +3,16 @@
 <details><summary>R PROBLEMS</summary>
 <p>
 
-**Problem 1** 8.23.3 from *Computing Skills for Biologists: A Toolbox*; In this excersize, we will get a glimpse of the image processing capabilities of R. We want to determine the projected leaf area of plants using photos, and analyze whether the leaves have grown significantly over the course of two days. The directory `CSB/r/data/leafarea/` contains images of plants at two time points (t1 and t2). The data have been collected by Madlen.
+### **Problem 1.)** 8.23.3 from *Computing Skills for Biologists: A Toolbox*; In this excersize, we will get a glimpse of the image processing capabilities of R. We want to determine the projected leaf area of plants using photos, and analyze whether the leaves have grown significantly over the course of two days. The directory `CSB/r/data/leafarea/` contains images of plants at two time points (t1 and t2). The data have been collected by Madlen.
   * Write a for loop that processes all images using the function `getArea`, which is provided in `CSB/r/solutions/getArea.R`. The function accepts a single file name as an argument, and returns the projected leaf area, measured in pixels. Your loop should record the leaf area for each image and store it in the data frame results. To loop over all files, you can use the function `list.files` along with its pattern matching option, to produce a list of all the files with extension .jpg in the directory `SC/r/data/leafarea/`. Work in your sandbox or change paths in the `getArea.R` function accordingly.
   * Plot the area of each plant as measured at the time point 1 verses time point 2.
   * Determine whether the plants significantly differ at the time points 1 and 2 using a paired t-test.
-   [My Solution/Code](Assignments/assignment-06-Csaenz10-answers.R)
+ ## [My Solution/Code](Assignments/assignment-06-Csaenz10-answers.R)
 
-**Problem 2** Analyze the `age_count_2020-07-13_2020-10-11.xlsx` data set; This data consists of the date that a COVID-19 test from somebody residing in Nueces County comes back positive (LABDATE) and the age of the person (AGE_YEARS). Each row is a person. There are 4 worksheets in the excel workbook, one per month (July-October). Complete the tasks and create an R script that will work when this repo is cloned to any computer. I encourage you to make tidyverse pipelines.
-  * Create an R script named `ageCovidSummary.R` in your exam repo and set the working directory with the following command: 
-
-```r
-setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
-```
-
-* Load the following libraries (install if necessary): tidyverse, readxl, janitor, and lubridate
-* Read the data from `age_count_2020-07-13_2020-10-11.xlsx` into a tibble named `covid_cases_age` and then do the following in a single pipeline:
+### **Problem 2.)** Analyze the `age_count_2020-07-13_2020-10-11.xlsx` data set; This data consists of the date that a COVID-19 test from somebody residing in Nueces County comes back positive (LABDATE) and the age of the person (AGE_YEARS). Each row is a person. There are 4 worksheets in the excel workbook, one per month (July-October). Complete the tasks and create an R script that will work when this repo is cloned to any computer. I encourage you to make tidyverse pipelines.
+  * Create an R script named `ageCovidSummary.R` in your exam repo and set the working directory with the following command: `setwd(dirname(rstudioapi::getActiveDocumentContext()$path))`
+  * Load the following libraries (install if necessary): tidyverse, readxl, janitor, and lubridate.
+  * Read the data from `age_count_2020-07-13_2020-10-11.xlsx` into a tibble named `covid_cases_age` and then do the following in a single pipeline:
     * Format the column names.
     * Make a new column called `date` and format it using `ymd()`.
     * Make a new column called `age_class` that evaluates the the values in `age_years` and assigns them to the proper 20 yr age bin: (0-19, 20-39, 40-59, 60-79, 80+).
@@ -45,19 +40,19 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
     # ... with 423 more rows
     ```
     
-* Create the following plot from `covid_cases_age`.
+  * Create the following plot from `covid_cases_age`.
   
 ![](R_Problem_2_Files/nueces_new-cases_age-class.png)
   
-* Recreate the following plot from `covid_cases_age`.
-* Hints: 
-  * Refer to lecture 8 where we used functions to add day of week and month to a tibble.
-  * Refer to the textbook/web for solution to making error bars, you will need to calculate the mean and sd for each row before initiating the plot.
-  * Search the web for solutions to allowing the y axis to freely vary depending upon age class.
+  * Recreate the following plot from `covid_cases_age`.
+    * Hints: 
+      * Refer to lecture 8 where we used functions to add day of week and month to a tibble.
+      * Refer to the textbook/web for solution to making error bars, you will need to calculate the mean and sd for each row before initiating the plot.
+      * Search the web for solutions to allowing the y axis to freely vary depending upon age class.
 
 ![](R_Problem_2_Files/nueces_mean-new-cases_day-ageclass.png)
 
-* There are different numbers of people in the age brackets and thus we might expect more positive cases in some age brackets than others. Read in the `Texas_Age_Demographic_Data.csv` file and process it down to a tibble named `nueces_demographics` with just the total number of people in each 20 year age bracket using tidyverse commands. Name the columns `age_class` and `num_people` as follows:
+  * There are different numbers of people in the age brackets and thus we might expect more positive cases in some age brackets than others. Read in the `Texas_Age_Demographic_Data.csv` file and process it down to a tibble named `nueces_demographics` with just the total number of people in each 20 year age bracket using tidyverse commands. Name the columns `age_class` and `num_people` as follows:
 
 ```r 
 > nueces_demographics
@@ -71,11 +66,11 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 5 80+            16584
 ```
 
-* Recreate the following plot with the data in the `nueces_demographics` tibble. The font size of the axis titles is 20 and the font size of the axis values is 18.
+  * Recreate the following plot with the data in the `nueces_demographics` tibble. The font size of the axis titles is 20 and the font size of the axis values is 18.
 
 ![](R_Problem_2_Files/nueces_num-people_age-class.png)
 
-* Now we can use the demographic data to calculate the number of new cases relative to the number of people in each age class. Join `covid_cases_age` and `nueces_demographics` together and save the new tibble as `covid_cases_age_census`. Add a column named `new_cases_per10k` with values calculated as follows: `10000*new_cases/num_people`. The result will be a tibble like `covid_cases_age` but with 2 additional columns:
+  * Now we can use the demographic data to calculate the number of new cases relative to the number of people in each age class. Join `covid_cases_age` and `nueces_demographics` together and save the new tibble as `covid_cases_age_census`. Add a column named `new_cases_per10k` with values calculated as follows: `10000*new_cases/num_people`. The result will be a tibble like `covid_cases_age` but with 2 additional columns:
 
 ```r 
 > covid_cases_age_census
@@ -96,39 +91,38 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # ... with 423 more rows
 ```
 
-* There is a pattern where the elderly are the last age group to experience a spike in COVID cases after a local outbreak. Modify your code from  above to make a plot with `new_cases_per10k` on the y axis. Is the figure consistent with my observations from other time periods? Which figure, this one or the one from above better portrays the level of COVID infection within and among age classes? Why?
+  * I noticed a pattern where the elderly are the last age group to experience a spike in COVID cases after a local outbreak. Modify your code from above to make a plot with `new_cases_per10k` on the y axis. Is the figure consistent with my observations from other time periods? Which figure, this one or the one from above better portrays the level of COVID infection within and among age classes? Why?
 
 ![](R_Problem_2_Files/nueces_new-cases-per10k_age-class.png)
 
-[My Solution/Code](Assignments/ageCovidSummary.R)
+## [My Solution/Code](Assignments/ageCovidSummary.R)
 
-**Problem 3** DNA Barcoding; Perform DNA barcoding on samples collected during the [2019 Texas Bioblitz](http://www.tamucc.edu/news/2019/08/082819-tamucc-collaborates-with-smithsonian-utmsi-on-marine-bioblitz.html#.XWmdQihKhaR). This will involve downloading the command line BLAST software package used to search GenBank, run BLAST searches from the `bash` command line, and make graphs of the output using `R`.
+### **Problem 3.)** DNA Barcoding; Perform DNA barcoding on samples collected during the [2019 Texas Bioblitz](http://www.tamucc.edu/news/2019/08/082819-tamucc-collaborates-with-smithsonian-utmsi-on-marine-bioblitz.html#.XWmdQihKhaR). This will involve downloading the command line BLAST software package used to search GenBank, run BLAST searches from the `bash` command line, and make graphs of the output using `R`.
 
-* Installing BLAST
+  * Installing BLAST
 
 ```bash
-# download the prcompiled unix binary which is in a compressed tarball 
+# download the precompiled unix binary which is in a compressed tarball 
 wget ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.8.1/ncbi-blast-2.8.1+-x64-linux.tar.gz
 
 # decompress the tarball 
 tar -zxvpf ncbi-blast-2.8.1+-x64-linux.tar.gz
-
 ```
 
-* You now have a directory called `ncbi-blast-2.8.1+` and the BLAST software tools are located in `ncbi-blast-2.8.1+/bin` You can move the BLAST tools into a directory in your PATH such as `/usr/local/bin` so that you can access blast from any directory. Confirm that `blastn` will run by checking the version and viewing the manual.
+  * You now have a directory called `ncbi-blast-2.8.1+` and the BLAST software tools are located in `ncbi-blast-2.8.1+/bin` You can move the BLAST tools into a directory in your PATH such as `/usr/local/bin` so that you can access blast from any directory. Confirm that `blastn` will run by checking the version and viewing the manual.
 
 ```bash
 sudo cp ncbi-blast-2.8.1+/bin/* /usr/local/bin
 source ~/.bashrc
 ```
 
-* Run BLAST searches using the nucleotide database search tool called `blastn`. The following sequence was collected from a fish during the [2019 Texas Bioblitz](http://www.tamucc.edu/news/2019/08/082819-tamucc-collaborates-with-smithsonian-utmsi-on-marine-bioblitz.html#.XWmdQihKhaR). The goal of this effort was to document the diversity of marine life in the Coastal Bend of Texas and create taxonomic-expert-verified DNA barcodes to improve public databases.
+  * Run BLAST searches using the nucleotide database search tool called `blastn`. The following sequence was collected from a fish during the [2019 Texas Bioblitz](http://www.tamucc.edu/news/2019/08/082819-tamucc-collaborates-with-smithsonian-utmsi-on-marine-bioblitz.html#.XWmdQihKhaR). The goal of this effort was to document the diversity of marine life in the Coastal Bend of Texas and create taxonomic-expert-verified DNA barcodes to improve public databases.
 
 ```bash
 blastn -db nt -query 2019-USATXS-0202_Chasmoides-logimaxilla_Fish_F1_2019-11-19_C02.1.fasta -out results.out -remote
 ```
 
-The results should look like this if you use `less -S` to view the `results.out` file
+  * The results should look like this, if you use `less -S` to view the `results.out` file:
 
 ```bash
 BLASTN 2.8.1+
@@ -179,49 +173,48 @@ EU751734.1  Chirostoma jordani voucher IPN 029 cytochrome oxidase...  630     2e
 results.out
 ```
 
-* The output does not provide everything needed to determine how good the match is between our Bioblitz query sequence and the GenBank database sequences, so we need to update the settings used in the BLAST search. The manual for BLAST `blastn -help` as well as the blast results from the [NCBI BLAST website](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PROGRAM=blastn&PAGE_TYPE=BlastSearch&LINK_LOC=blasthome) and the [online BLAST help](https://www.ncbi.nlm.nih.gov/books/NBK279682/) was used to determine which settings needed to add the columns of information to the output.
+  * The output does not provide everything needed to determine how good the match is between our Bioblitz query sequence and the GenBank database sequences, so we need to update the settings. The manual for BLAST `blastn -help` as well as the blast results from the [NCBI BLAST website](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PROGRAM=blastn&PAGE_TYPE=BlastSearch&LINK_LOC=blasthome) and the [online BLAST help](https://www.ncbi.nlm.nih.gov/books/NBK279682/) were used to determine which settings to change to add the columns of information.
 
 ```bash
 blastn -db nt -query 2019-USATXS-0202_Chasmoides-logimaxilla_Fish_F1_2019-11-19_C02.1.fasta -outfmt "7 qseqid stitle saccver qcovs pident evalue qseq" -max_target_seqs 50 -out results.out -remote
 ```
 
-* Note that in the output, the line labeled "Fields" contains the column headers:
-  * query id	-	sample name from the fasta file
-  * subject title	-	Title of database record matching the query sequence from the bioblitz
-  * subject acc.ver	-	GenBank accession number of the record matching the query
-  * % query coverage per subject	-	percent of query sequence that can be aligned to the database record
-  * % identity	-	percent of aligned nucleotides that match (97% is typically considered a species match by default)
-  * evalue	-	"The Expect value (E) is a parameter that describes the number of hits one can "expect" to see by chance when searching a database of a particular size. It decreases exponentially as the Score (S) of the match increases.
-  * query seq	-	sequence of the database record aligned to the query sequence
+  * In the output, the line labeled "Fields" contains the column headers:
+    * query id	-	sample name from the fasta file
+    * subject title	-	Title of database record matching the query sequence from the bioblitz
+    * subject acc.ver	-	GenBank accession number of the record matching the query
+    * % query coverage per subject	-	percent of query sequence that can be aligned to the database record
+    * % identity	-	percent of aligned nucleotides that match (97% is typically considered a species match by default)
+    * evalue	-	"The Expect value (E) is a parameter that describes the number of hits one can "expect" to see by chance when searching a database of a particular size.
+    * query seq	-	sequence of the database record aligned to the query sequence
 
-* Now let us search on multiple sequences. Concatenate the two fasta files in a new file called `two_seqs.fasta`. Then revise the blastn search to query `two_seqs.fasta`, change the max number of sequences returned to be 20, and save the blast results into a file called `results_twoseqs.out`
+  * Now let us search on multiple sequences. Concatenate the two fasta files in a new file called `two_seqs.fasta`. Then revise the blastn search to query `two_seqs.fasta`, change the max number of sequences returned to be 20, and save the blast results into a file called `results_twoseqs.out`
+    * `2019-USATXS-0703_Gobiidae-sp_Fish_R1_2019-11-12_H06.1.fasta`
+    * `2019-USATXS-0202_Chasmoides-logimaxilla_Fish_F1_2019-11-19_C02.1.fasta`
 
-  * `2019-USATXS-0703_Gobiidae-sp_Fish_R1_2019-11-12_H06.1.fasta`
-  * `2019-USATXS-0202_Chasmoides-logimaxilla_Fish_F1_2019-11-19_C02.1.fasta`
+  * It would take too long to blast all of the sequences generated in the Bioblitz, so it was done for you. Rather than concatenating two fasta sequences together, I concatenated all of them and ran a blast search very similar to the one you just ran. The results of that blast search on 601 sequences can be found in `results_blast.out`. Bash tools such as `grep` `cut` and `paste` were used to convert the blast output to a file with 1 row per query sequence called `tophit.tsv`. I further manipulated `tophit.tsv` to add columns, which resulted in the final file `tophit4.tsv` which can be read into R.
+  * The columns in `tophit4.tsv` are:
+    * Sample	-	bioblitz sample name
+    * TaxExpSpId	-	species id given to sample by taxonomic expert-verified
+    * GenBankSpID	-	the specied id of the most similar GenBank sequence to our bioblitz sample sequence
+    * GenBankDescription
+    * TaxId	-	every species has a unique taxonomic id in GenBank, this is that id
+    * Accession	-	every sequence has a unique id in GenBank, this is that id
+    * PctQueryCoverage	-	percent of query sequence that can be aligned to the database record
+    * PctIdentity	-	percent of aligned nucleotides that match (97% is typically considered a species match by default)
+    * Escore	-	"The Expect value (E) is a parameter that describes the number of hits one can "expect" to see by chance when searching a database of a particular size.
+    * QuerySeq	-	sequence of the database record aligned to the query sequence
+    * SpIdMatch	-	do TaxExpSpId and GenBankSpID match exactly?
+    * MatchQuality	-	categorical assessment of PctIdentity, >=97 is a SpeciesHit, as PctIdentity decreases, it becomes less likely that the species we sampled has been barcoded
+    * CoverageQuality	-	categorical assessment of PctQueryCoverage, if this value is too low then it means that we need a better algorithm to identify the best match
+    * Err_MatchQual	-	 a combination of the aforementioned categorical columns with additional categories inidicating samples that have been mislabeled in our data sheets and need to be fixed or 
 
-* Using R to Visualize Output from Blast. It would take too long to blast all of the sequences generated in the Bioblitz, so it was done for you. Rather than concatenating two fasta sequences together, I concatenated all of them and ran a blast search very similar to the one you just ran. The results of that blast search on 601 sequences can be found in `results_blast.out`. Bash tools such as `grep` `cut` and `paste` were used to convert the blast output to a file with 1 row per query sequence called `tophit.tsv`. I further manipulated `tophit.tsv` to add columns, which resulted in the final file `tophit4.tsv` which can be read into R.
-* The columns in `tophit4.tsv` are:
-  * Sample	-	bioblitz sample name
-  * TaxExpSpId	-	species id given to sample by taxonomic expert-verified
-  * GenBankSpID	-	the specied id of the most similar GenBank sequence to our bioblitz sample sequence
-  * GenBankDescription
-  * TaxId	-	every species has a unique taxonomic id in GenBank, this is that id
-  * Accession	-	every sequence has a unique id in GenBank, this is that id
-  * PctQueryCoverage	-	percent of query sequence that can be aligned to the database record
-  * PctIdentity	-	percent of aligned nucleotides that match (97% is typically considered a species match by default)
-  * Escore	-	"The Expect value (E) is a parameter that describes the number of hits one can "expect" to see by chance when searching a database of a particular size. It decreases exponentially as the Score (S) of the match increases. 
-  * QuerySeq	-	sequence of the database record aligned to the query sequence
-  * SpIdMatch	-	do TaxExpSpId and GenBankSpID match exactly?
-  * MatchQuality	-	categorical assessment of PctIdentity, >=97 is a SpeciesHit, as PctIdentity decreases, it becomes less likely that the species we sampled has been barcoded
-  * CoverageQuality	-	categorical assessment of PctQueryCoverage, if this value is too low then it means that we need a better algorithm to identify the best match
-  * Err_MatchQual	-	this is a combination of the aforementioned categorical columns with additional categories inidicating samples that have been mislabeled in our data sheets and need to be fixed or 
-
-* Make an R script called `tophit4.R` to visualize the data in `tophit4.tsv`. 
-  * make sure `tophit4.tsv` accessible by RStudio. 
-  * set your R-studio working directory to the location of `tophit4.tsv`
+  * Make an R script called `tophit4.R` to visualize the data in `tophit4.tsv`. 
+    * make sure `tophit4.tsv` accessible by RStudio. 
+    * set your R-studio working directory to the location of `tophit4.tsv`
     * I would create the R file in your repo, then use `setwd(dirname(rstudioapi::getActiveDocumentContext()$path))`
-  * use the `tidyverse` tool called `read_tsv` to read in `tophit4.tsv`
-  * use `ggplot` to recreate the following figures in the following files `Rplot.png`, `Rplot2.png`, `Rplot3.png`
+    * use the `tidyverse` tool called `read_tsv` to read in `tophit4.tsv`
+    * use `ggplot` to recreate the following figures in the following files `Rplot.png`, `Rplot2.png`, `Rplot3.png`
 
 ![](R_Problem_3_FIles/Rplot.png)
 
@@ -229,7 +222,7 @@ blastn -db nt -query 2019-USATXS-0202_Chasmoides-logimaxilla_Fish_F1_2019-11-19_
 
 ![](R_Problem_3_FIles/Rplot3.png)
 
-[My Solution/Code](Assignments/tophit4.R)
+## [My Solution/Code](Assignments/tophit4.R)
 
 </p>
 </details>
@@ -237,12 +230,12 @@ blastn -db nt -query 2019-USATXS-0202_Chasmoides-logimaxilla_Fish_F1_2019-11-19_
 <details><summary>PYTHON PROBLEMS</summary>
 <p>
 
-**Problem 1** 3.8.1 Measles Time Series from *Computing Skills for Biologists: A Toolbox*; In their article, Dalziel et al. (2016) provide a long time series reporting the number of cases of measles before mass vacination, for many US cities. The data consist of cases in a given US city for a given year, and a given biweek of the year (i.e., first two weeks, second two weeks, etc.). The time series is contained in the file `Dalziel2016_data.csv`.
+### **Problem 1.)** 3.8.1 Measles Time Series from *Computing Skills for Biologists: A Toolbox*; In their article, Dalziel et al. (2016) provide a long time series reporting the number of cases of measles before mass vacination, for many US cities. The data consist of cases in a given US city for a given year, and a given biweek of the year (i.e., first two weeks, second two weeks, etc.). The time series is contained in the file `Dalziel2016_data.csv`.
   * Write a program that extracts the names of all the cities in the database (one entry per city).
   * Write a program that creates a dictionary where the keys are the cities and the values are the number of records (rows) for that city in the data.
   * Write a program that calculates the mean population for each city obtained by averaging the values of `pop`.
   * Write a program that calculates the mean population for each city and year.
-**Problem 2** 3.8.2  Red Queen in Fruit Flies from *Computing Skills for Biologists: A Toolbox*; Singh et al. (2015) show that, when infected with a parasite, the four genetic lines of *D. melanogaster* respond by increasing the production of recombinant offspring (arguably, trying to produce new recombinants able to escape the parasite). They show that the same outcome is not achieved by artificially wounding the flies. The data needed to replicate the main claim (figure 2 of the original article) is contained in the file `Singh2015_data.csv`. Open the file, and compute the mean `RecombinantFraction` for each `*Drosophilia* Line`, and `InfectionStatus` (W for wounded and I for infected). Print the results in the following form:
+### **Problem 2.)** 3.8.2 Red Queen in Fruit Flies from *Computing Skills for Biologists: A Toolbox*; Singh et al. (2015) show that, when infected with a parasite, the four genetic lines of *D. melanogaster* respond by increasing the production of recombinant offspring (arguably, trying to produce new recombinants able to escape the parasite). They show that the same outcome is not achieved by artificially wounding the flies. The data needed to replicate the main claim (figure 2 of the original article) is contained in the file `Singh2015_data.csv`. Open the file, and compute the mean `RecombinantFraction` for each `*Drosophilia* Line`, and `InfectionStatus` (W for wounded and I for infected). Print the results in the following form:
 
 ```bash
 Line 45 Average Recombination Rate:
@@ -250,14 +243,14 @@ W : 0.187
 I : 0.191
 ```
 
-[My Solution/Code](Assignments/assignment-11-Csaenz10.txt)
+## [My Solution/Code (includes Problems 1 and 2)](Assignments/assignment-11-Csaenz10.txt)
 
-**Problem 2** 4.10.1 Assortative Mating in Animals from *Computing Skills for Biologists: A Toolbox*; Jiang et al. (2013) studied the assortative mating in animals. They compiled a large database, reporting the results of many experiments on mating. In particular, for several taxa they provide the value of correlation among the sizes of the mates. A positive value of r stands for assortative mating (large animals tend to mate with large animals), and a negative value for disassortative mating.
+### **Problem 3.)** 4.10.1 Assortative Mating in Animals from *Computing Skills for Biologists: A Toolbox*; Jiang et al. (2013) studied the assortative mating in animals. They compiled a large database, reporting the results of many experiments on mating. In particular, for several taxa they provide the value of correlation among the sizes of the mates. A positive value of r stands for assortative mating (large animals tend to mate with large animals), and a negative value for disassortative mating.
   * You can find the data in `good_code/data/Jiang2013_data.csv`. Write a function that takes as input the desired Taxon and returns the mean value of r.
   * You should see that fish have a positive value of r, but that this is also true for other taxa. Is the mean value of r especially high for fish? To test this, compute a *p-value* by repeatedly sampling 37 values of r(37 experiments on fish are reported in the database) at random, and calculating the probability of observing a higher mean value of r. To get an accurate estimate of the *p-value*, use 50,000 randomizations.
   * Repeat the procedure for all taxa.
 
-[My Solution/Code](Assignments/assignment12.txt)
+## [My Solution/Code](Assignments/assignment12.txt)
 
 </p>
 </details>
