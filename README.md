@@ -102,7 +102,7 @@
   * Installing BLAST
 
 ```bash
-# download the precompiled unix binary which is in a compressed tarball 
+# download the prcompiled unix binary which is in a compressed tarball 
 wget ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.8.1/ncbi-blast-2.8.1+-x64-linux.tar.gz
 
 # decompress the tarball 
@@ -173,7 +173,7 @@ EU751734.1  Chirostoma jordani voucher IPN 029 cytochrome oxidase...  630     2e
 results.out
 ```
 
-  * The output does not provide everything needed to determine how good the match is between our Bioblitz query sequence and the GenBank database sequences, so we need to update the settings. The manual for BLAST `blastn -help` as well as the blast results from the [NCBI BLAST website](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PROGRAM=blastn&PAGE_TYPE=BlastSearch&LINK_LOC=blasthome) and the [online BLAST help](https://www.ncbi.nlm.nih.gov/books/NBK279682/) were used to determine which settings to change to add the columns of information.
+  * The output does not provide everything needed to determine how good the match is between our Bioblitz query sequence and the GenBank database sequences, so we need to update the settings. The manual for BLAST `blastn -help`, the blast results from the [NCBI BLAST website](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PROGRAM=blastn&PAGE_TYPE=BlastSearch&LINK_LOC=blasthome) and the [online BLAST help](https://www.ncbi.nlm.nih.gov/books/NBK279682/) were used to determine which settings to use  to add columns of information.
 
 ```bash
 blastn -db nt -query 2019-USATXS-0202_Chasmoides-logimaxilla_Fish_F1_2019-11-19_C02.1.fasta -outfmt "7 qseqid stitle saccver qcovs pident evalue qseq" -max_target_seqs 50 -out results.out -remote
@@ -207,7 +207,7 @@ blastn -db nt -query 2019-USATXS-0202_Chasmoides-logimaxilla_Fish_F1_2019-11-19_
     * SpIdMatch	-	do TaxExpSpId and GenBankSpID match exactly?
     * MatchQuality	-	categorical assessment of PctIdentity, >=97 is a SpeciesHit, as PctIdentity decreases, it becomes less likely that the species we sampled has been barcoded
     * CoverageQuality	-	categorical assessment of PctQueryCoverage, if this value is too low then it means that we need a better algorithm to identify the best match
-    * Err_MatchQual	-	 a combination of the aforementioned categorical columns with additional categories inidicating samples that have been mislabeled in our data sheets and need to be fixed or 
+    * Err_MatchQual	-	 a combination of the aforementioned categorical columns with additional categories inidicating samples that have been mislabeled in our data sheets and need to be fixed
 
   * Make an R script called `tophit4.R` to visualize the data in `tophit4.tsv`. 
     * make sure `tophit4.tsv` accessible by RStudio. 
