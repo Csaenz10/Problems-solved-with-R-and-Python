@@ -247,11 +247,11 @@ The columns in `tophit4.tsv` are:
   * use the `tidyverse` tool called `read_tsv` to read in `tophit4.tsv`
   * use `ggplot` to recreate the following figures in the following files `Rplot.png`, `Rplot2.png`, `Rplot3.png`
 
-![](Rplot.png)
+![](R_Problem_3_FIles/Rplot.png)
 
-![](Rplot2.png)
+![](R_Problem_3_FIles/Rplot2.png)
 
-![](Rplot3.png)
+![](R_Problem_3_FIles/Rplot3.png)
 
 [My Solution/Code](Assignments/tophit4.R)
 
